@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{CD8609A6-0BDB-4DD3-9763-16673DC24D34}|Default">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ScoopatBackend/Controllers/Authentication/AuthenticationController.cs">
+    <Files>
+      <File FileName="ScoopatBackend/Controllers/Authentication/AuthenticationController.cs" Line="42" Column="86" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ScoopatBackend" expanded="True">
+            <Node name="ScoopatBackend" expanded="True">
+              <Node name="Dependencies" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="Authentication" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.ScoopatBackend PreferredExecutionTarget="/Applications/Safari.app" />
+</Properties>
