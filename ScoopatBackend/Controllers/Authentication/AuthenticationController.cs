@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ScoopatBackend.Models;
 using ScoopatBackend.Models.Authentication;
@@ -69,6 +70,8 @@ public class AuthenticationController : ControllerBase
             }
             var userFromDb = await _userManager.FindByNameAsync(userToCreate.UserName);
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(userFromDb);
+            var userRoles = await _userManager.GetRolesAsync(userFromDb);
+
 
             var employee = new Employee()
             {
@@ -76,12 +79,14 @@ public class AuthenticationController : ControllerBase
                 CreatedAt = DateTime.UtcNow.Date,
                 Contact = model.Contact,
                 IdType = model.IdType,
-                IdNumber = model.IdNumber
+                IdNumber = model.IdNumber,
+                role = userRoles.FirstOrDefault(),
+                Firstname = model.Firstname,
+                Lastname = model.Lastname
             };
             await _context.Employees.AddAsync(employee);
             await _context.SaveChangesAsync();
 
-            var userRoles = await _userManager.GetRolesAsync(userFromDb);
 
             return Ok(
                 new RegisterResponseModel()
@@ -130,6 +135,7 @@ public class AuthenticationController : ControllerBase
             }
             var userFromDb = await _userManager.FindByNameAsync(userToCreate.UserName);
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(userFromDb);
+            var userRoles = await _userManager.GetRolesAsync(userFromDb);
 
             var employee = new Employee()
             {
@@ -137,12 +143,15 @@ public class AuthenticationController : ControllerBase
                 CreatedAt = DateTime.UtcNow.Date,
                 Contact = model.Contact,
                 IdNumber = model.IdNumber,
-                IdType = model.IdType
+                IdType = model.IdType,
+                role = userRoles.FirstOrDefault(),
+                Firstname = model.Firstname,
+                Lastname = model.Lastname
             };
             await _context.Employees.AddAsync(employee);
             await _context.SaveChangesAsync();
 
-            var userRoles = await _userManager.GetRolesAsync(userFromDb);
+            
 
             return Ok(
                 new RegisterResponseModel()
@@ -212,15 +221,23 @@ public class AuthenticationController : ControllerBase
         return Unauthorized();
 
     }
-    
-    
-    
 
-    
-    
-    
-    
-    
-    
-    
+    [HttpGet]
+    [Route("GetAllInspectors")]
+    public async Task<IActionResult> GetAllInspectors()
+    {
+        var inspectors = await _context.Employees.Where(e => e.role == "Inspector").ToListAsync();
+        return Ok(inspectors);
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
