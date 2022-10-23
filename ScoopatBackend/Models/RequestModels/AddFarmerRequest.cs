@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ScoopatBackend.Models.RequestModels;
 
 public class AddFarmerRequest
 {
-    [Required]
-    public string? FarmerCode { get; set; }
+  
     [Required]
     public string? FirstName { get; set; }
     [Required]
@@ -15,6 +15,7 @@ public class AddFarmerRequest
     [Required]
     public string? IdNumber { get; set; }
     [Required]
+    [Column(TypeName="date")]
     public string? BirthPlace { get; set; }
     [Required]
     public DateTime? BirthDate { get; set; }

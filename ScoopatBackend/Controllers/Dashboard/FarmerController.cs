@@ -40,7 +40,7 @@ public class FarmerController : ControllerBase
         if (!ModelState.IsValid) return BadRequest();
         var farmer = new Farmer()
         {
-            FarmerCode = model.FarmerCode,
+            
             FirstName = model.FirstName,
             LastName = model.LastName,
             IdType = model.IdType,
@@ -53,9 +53,93 @@ public class FarmerController : ControllerBase
             Section = model.Section,
             Region = model.Region,
             Department = model.Department,
-            isFarmOwner = model.isFarmOwner
-
+            isFarmOwner = model.isFarmOwner,
         };
+        if (farmer.Region == "SEGUIE")
+        {
+            string lastCode = (await _context.Farmers.OrderByDescending(f => f.FarmerId).Where(f => f.Region=="SEGUIE").Select(f => f.FarmerCode).FirstOrDefaultAsync())!;
+            int newCode = Int32.Parse(lastCode.Substring(10));
+            newCode++;
+            Console.WriteLine(newCode);
+            string identifier = "U";
+            farmer.FarmerCode = "901585000"+identifier+"0"+newCode;
+            
+        }else if (farmer.Region == "KOUADJAKRO")
+        {
+            string lastCode = (await _context.Farmers.OrderByDescending(f => f.FarmerId).Where(f => f.Region=="KOUADJAKRO").Select(f => f.FarmerCode).FirstOrDefaultAsync())!;
+            int newCode = Int32.Parse(lastCode.Substring(10));
+            newCode++;
+            Console.WriteLine(newCode);
+            string identifier = "F";
+            farmer.FarmerCode = "901585000"+identifier+"0"+newCode;
+            
+        }else if (farmer.Region == "OFFOUMPO")
+        {
+            string lastCode = (await _context.Farmers.OrderByDescending(f => f.FarmerId).Where(f => f.Region=="OFFOUMPO").Select(f => f.FarmerCode).FirstOrDefaultAsync())!;
+            int newCode = Int32.Parse(lastCode.Substring(10));
+            newCode++;
+            Console.WriteLine(newCode);
+            string identifier = "G";
+            farmer.FarmerCode = "901585000"+identifier+"0"+newCode;
+            
+        }else if (farmer.Region == "BOKAO")
+        {
+            string lastCode = (await _context.Farmers.OrderByDescending(f => f.FarmerId).Where(f => f.Region=="BOKAO").Select(f => f.FarmerCode).FirstOrDefaultAsync())!;
+            int newCode = Int32.Parse(lastCode.Substring(10));
+            newCode++;
+            Console.WriteLine(newCode);
+            string identifier = "H";
+            farmer.FarmerCode = "901585000"+identifier+"0"+newCode;
+            
+        }else if (farmer.Region == "SICOGI")
+        {
+            string lastCode = (await _context.Farmers.OrderByDescending(f => f.FarmerId).Where(f => f.Region=="SICOGI").Select(f => f.FarmerCode).FirstOrDefaultAsync())!;
+            int newCode = Int32.Parse(lastCode.Substring(10));
+            newCode++;
+            Console.WriteLine(newCode);
+            string identifier = "I";
+            farmer.FarmerCode = "901585000"+identifier+"0"+newCode;
+            
+        }else if (farmer.Region == "OFFA")
+        {
+            string lastCode = (await _context.Farmers.OrderByDescending(f => f.FarmerId).Where(f => f.Region=="OFFA").Select(f => f.FarmerCode).FirstOrDefaultAsync())!;
+            int newCode = Int32.Parse(lastCode.Substring(10));
+            newCode++;
+            Console.WriteLine(newCode);
+            string identifier = "K";
+            farmer.FarmerCode = "901585000"+identifier+"0"+newCode;
+            
+        }else if (farmer.Region == "ABOUDE MANDEKE")
+        {
+            string lastCode = (await _context.Farmers.OrderByDescending(f => f.FarmerId).Where(f => f.Region=="ABOUDE MANDEKE").Select(f => f.FarmerCode).FirstOrDefaultAsync())!;
+            int newCode = Int32.Parse(lastCode.Substring(10));
+            newCode++;
+            Console.WriteLine(newCode);
+            string identifier = "L";
+            farmer.FarmerCode = "901585000"+identifier+"0"+newCode;
+            
+        }else if (farmer.Region == "KOTCHIMPO")
+        {
+            string lastCode = (await _context.Farmers.OrderByDescending(f => f.FarmerId).Where(f => f.Region=="KOTCHIMPO").Select(f => f.FarmerCode).FirstOrDefaultAsync())!;
+            int newCode = Int32.Parse(lastCode.Substring(10));
+            newCode++;
+            Console.WriteLine(newCode);
+            string identifier = "P";
+            farmer.FarmerCode = "901585000"+identifier+"0"+newCode;
+            
+        }else if (farmer.Region == "ABOUDE NOUVEAU QUARTIER" || farmer.Region == "ABOUDE KOUASSIKRO")
+        {
+            string lastCode = (await _context.Farmers.OrderByDescending(f => f.FarmerId).Where(f => f.Region=="ABOUDE NOUVEAU QUARTIER" || f.Region=="ABOUDE KOUASSIKRO").Select(f => f.FarmerCode).FirstOrDefaultAsync())!;
+            int newCode = Int32.Parse(lastCode.Substring(10));
+            newCode++;
+            Console.WriteLine(newCode);
+            string identifier = "S";
+            farmer.FarmerCode = "901585000"+identifier+"0"+newCode;
+        }
+        else
+        {
+            farmer.FarmerCode = "Nan";
+        }
         await _context.Farmers.AddAsync(farmer);
         await _context.SaveChangesAsync();
 
@@ -86,12 +170,12 @@ public class FarmerController : ControllerBase
         {
             var owner = new FarmOwner()
             {
-                FirstName = farmer.FirstName,
-                LastName = farmer.LastName,
-                Sex = farmer.Sex,
-                IdType = farmer.IdType,
-                IdNumber = farmer.IdNumber,
-                Contact = farmer.Contact
+                FirstName = farmer.FirstName!,
+                LastName = farmer.LastName!,
+                Sex = farmer.Sex!,
+                IdType = farmer.IdType!,
+                IdNumber = farmer.IdNumber!,
+                Contact = farmer.Contact!
             };
             await _context.FarmOwners.AddAsync(owner);
             await _context.SaveChangesAsync();

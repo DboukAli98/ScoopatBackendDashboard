@@ -42,18 +42,23 @@ public class AuthenticationController : ControllerBase
     [Route("RegisterEmployee")]
     public async Task<IActionResult> Register([FromBody] RegisterEmployeeModel model)
     {
+        
+        var username = model.Firstname + "@" + model.Lastname + ".scoopat";
         var userToCreate = new ApplicationUser()
         {
             Email = model.Email,
-            UserName = model.Username,
+            UserName = username,
             SecurityStamp = Guid.NewGuid().ToString(),
             FirstName = model.Firstname,
             LastName = model.Lastname,
             
+            
         };
+
+        var Password = model.Firstname + "sco@" + model.Lastname;
         
         //Create User
-        var result = await _userManager.CreateAsync(userToCreate, model.Password);
+        var result = await _userManager.CreateAsync(userToCreate, Password);
         if (result.Succeeded)
         {
             if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
@@ -80,7 +85,7 @@ public class AuthenticationController : ControllerBase
                 Contact = model.Contact,
                 IdType = model.IdType,
                 IdNumber = model.IdNumber,
-                role = userRoles.FirstOrDefault(),
+                role = userRoles.FirstOrDefault()!,
                 Firstname = model.Firstname,
                 Lastname = model.Lastname
             };
@@ -94,7 +99,7 @@ public class AuthenticationController : ControllerBase
                     Token = token,
                     id = userFromDb.Id,
                     username = userFromDb.UserName,
-                    role = userRoles.FirstOrDefault()
+                    role = userRoles.FirstOrDefault()!
 
                 });
             
@@ -107,18 +112,20 @@ public class AuthenticationController : ControllerBase
     [Route("RegisterAdmin")]
     public async Task<IActionResult> RegisterAdmin([FromBody] RegisterEmployeeModel model)
     {
+        var username = model.Firstname + "@" + model.Lastname + ".adminScoo";
         var userToCreate = new ApplicationUser()
         {
             Email = model.Email,
-            UserName = model.Username,
+            UserName = username,
             SecurityStamp = Guid.NewGuid().ToString(),
             FirstName = model.Firstname,
             LastName = model.Lastname,
             
         };
         
+        var Password = model.Firstname + "sco@admin" + model.Lastname;
         //Create User
-        var result = await _userManager.CreateAsync(userToCreate, model.Password);
+        var result = await _userManager.CreateAsync(userToCreate, Password);
         if (result.Succeeded)
         {
             if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
@@ -144,7 +151,7 @@ public class AuthenticationController : ControllerBase
                 Contact = model.Contact,
                 IdNumber = model.IdNumber,
                 IdType = model.IdType,
-                role = userRoles.FirstOrDefault(),
+                role = userRoles.FirstOrDefault()!,
                 Firstname = model.Firstname,
                 Lastname = model.Lastname
             };
