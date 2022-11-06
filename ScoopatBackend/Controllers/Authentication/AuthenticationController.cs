@@ -55,7 +55,7 @@ public class AuthenticationController : ControllerBase
             
         };
 
-        var Password = model.Firstname + "sco@" + model.Lastname;
+        var Password = "Test@123";
         
         //Create User
         var result = await _userManager.CreateAsync(userToCreate, Password);

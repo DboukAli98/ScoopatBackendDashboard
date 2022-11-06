@@ -16,6 +16,7 @@ public class Farm
     public double Longtitude { get; set; }
     public ICollection<CultivationInformation> CultivationInformations { get; set; }
     public ICollection<Workers> Workers { get; set; }
+    public ICollection<Inspection> Inspections { get; set; }
 
 
 

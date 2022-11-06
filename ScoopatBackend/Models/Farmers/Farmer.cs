@@ -32,6 +32,7 @@ public class Farmer
     [Required]
     public string? Department { get; set; }
     public bool? isFarmOwner { get; set; }
+    public ICollection<Inspection> Inspections { get; set; }
 
 
 

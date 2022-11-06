@@ -24,6 +24,17 @@ public class FarmController : Controller
         var farms = await _context.Farms.ToListAsync();
         return Ok(farms);
     }
+    [HttpGet]
+    [Route("GetSingleFarm")]
+    public async Task<IActionResult> GetsingleFarm(int farmId)
+    {
+        var farm = await _context.Farms.Where(f => f.FarmId == farmId)
+            .Include(f => f.CultivationInformations)
+            .Include(f => f.Inspections)
+            .FirstOrDefaultAsync();
+        if (farm == null) return NotFound("Farm Not Found !");
+        return Ok(farm);
+    }
 
     [HttpGet]
     [Route("GetFarmWorkers")]
@@ -101,6 +112,15 @@ public class FarmController : Controller
 
         return Ok(owner);
 
+    }
+
+    [HttpGet]
+    [Route("GetFamersInFarm")]
+    public async Task<IActionResult> GetFarmersInFarm(int farmId)
+    {
+        var farm = await _context.Farms.Where(f => f.FarmId == farmId).FirstOrDefaultAsync();
+        var farmers = await _context.FarmersFarms.Where(f => f.Farm == farm).Select(f => f.Farmer).ToListAsync();
+        return Ok(farmers);
     }
 
 

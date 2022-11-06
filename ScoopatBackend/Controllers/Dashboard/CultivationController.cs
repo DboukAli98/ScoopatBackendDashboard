@@ -8,7 +8,7 @@ namespace ScoopatBackend.Controllers.Dashboard;
 
 [Route("api/[controller]")]
 [ApiController]
-public class CultivationController : Controller
+public class CultivationController : ControllerBase
 {
     
     private readonly ApplicationDbContext _context;

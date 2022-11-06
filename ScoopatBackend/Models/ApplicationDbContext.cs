@@ -20,6 +20,13 @@ public class ApplicationDbContext:IdentityDbContext<ApplicationUser>
     public DbSet<OwnersFarms> OwnersFarms { get; set; }
     public DbSet<FarmersFarm> FarmersFarms { get; set; }
     public DbSet<Workers> Workers { get; set; }
+    public DbSet<Inspection> Inspections { get; set; }
+    public DbSet<Question> Questions { get; set; }
+    public DbSet<Assesment> Assesments { get; set; }
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<Result> Results { get; set; }
+    public DbSet<InspectionQuestionResult> InspectionQuestionsResults { get; set; }
+
 
 
 }
