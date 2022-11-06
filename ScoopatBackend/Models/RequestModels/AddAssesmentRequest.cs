@@ -4,11 +4,8 @@ namespace ScoopatBackend.Models.RequestModels;
 
 public class AddAssesmentRequest
 {
+    
     [Required]
-    public int Conformity { get; set; }
-    [Required]
-    public int NonConformity { get; set; }
-
-    [Required]
-    public int NonApplicable { get; set; }
+    public string Status { get; set; }
+    public string Notes { get; set; }
 }

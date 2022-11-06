@@ -66,10 +66,12 @@ public class SurveyController : ControllerBase
 
     [HttpPost]
     [Route("SetAssesment")]
-    public async Task<IActionResult> SetAssesment(int questionId , [FromBody] ResultRequestModel model )
+    public async Task<IActionResult> SetAssesment(int questionId ,int inspectionId, [FromBody] ResultRequestModel model )
     {
         var question = await _context.Questions.Where(q => q.QuestionId == questionId).FirstOrDefaultAsync();
+        var inspection = await _context.Inspections.Where(i => i.InspectionId == inspectionId).FirstOrDefaultAsync();
         if (question == null) return NotFound("Question Not Found !");
+        if (inspection == null) return NotFound("Inspection Not Found !");
         var result = new Result()
         {
             ResultType = model.ResultType,
@@ -80,8 +82,25 @@ public class SurveyController : ControllerBase
         await _context.Results.AddAsync(result);
         await _context.SaveChangesAsync();
 
+        var inspectResult = new InspectionQuestionResult()
+        {
+            Result = result,
+            Inspection = inspection
+            
+        };
+        await _context.InspectionQuestionsResults.AddAsync(inspectResult);
+        await _context.SaveChangesAsync();
+
         return Ok(result);
     }
 
-    
+    [HttpGet]
+    [Route("GetAllQuestions")]
+    public async Task<IActionResult> GetAllQuestions()
+    {
+        var questions = await _context.Questions.Include(q => q.Category).ToListAsync();
+        return Ok(questions);
+    }
+
+
 }

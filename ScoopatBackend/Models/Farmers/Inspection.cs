@@ -16,8 +16,7 @@ public class Inspection
     public Assesment Assesment { get; set; }
     [Required]
     public DateTime DateOfInspection { get; set; }
-    [Required]
-    public string Status { get; set; }
+    
     
 
 }

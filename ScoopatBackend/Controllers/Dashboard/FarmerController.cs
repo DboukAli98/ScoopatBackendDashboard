@@ -26,6 +26,25 @@ public class FarmerController : ControllerBase
     }
 
     [HttpGet]
+    [Route("GetSingleFarmer")]
+    public async Task<IActionResult> GetSingleFarmer(int farmerId)
+    {
+        var farmer = await _context.Farmers.Where(f => f.FarmerId == farmerId).FirstOrDefaultAsync();
+        if (farmer == null) return NotFound("Farmer Not Found !");
+        return Ok(farmer);
+    }
+
+    [HttpGet]
+    [Route("GetFarmerFarm")]
+    public async Task<IActionResult> GetFarmersFarm(int farmerId)
+    {
+        var farmer = await _context.Farmers.Where(f => f.FarmerId == farmerId).FirstOrDefaultAsync();
+        if (farmer == null) return NotFound("Farmer Not Found !");
+        var farms = await _context.FarmersFarms.Where(f => f.Farmer == farmer).Include(f =>f.Farm).ToListAsync();
+        return Ok(farms);
+    }
+
+    [HttpGet]
     [Route("GetFarmersByRegion")]
     public async Task<IActionResult> GetFarmersByRegion(string region)
     {
