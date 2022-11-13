@@ -17,6 +17,7 @@ public class Farm
     public ICollection<CultivationInformation> CultivationInformations { get; set; }
     public ICollection<Workers> Workers { get; set; }
     public ICollection<Inspection> Inspections { get; set; }
+    public ICollection<Mapping> Mappings { get; set; }
 
 
 

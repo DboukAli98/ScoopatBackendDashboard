@@ -123,6 +123,25 @@ public class FarmController : Controller
         return Ok(farmers);
     }
 
+    [HttpPost]
+    [Route("AddFarmMapping")]
+    public async Task<IActionResult> AddFarmMappings(int farmId , [FromBody] MappingRequestModel model )
+    {
+        var farm = await _context.Farms.Where(f => f.FarmId == farmId).FirstOrDefaultAsync();
+        if (farm == null) return NotFound("Farm Not Found !");
+        var mapping = new Mapping()
+        {
+            Farm = farm,
+            Area = model.Area
+        };
+        await _context.Mappings.AddAsync(mapping);
+        await _context.SaveChangesAsync();
+
+
+        return Ok(mapping);
+
+    }
+
 
 
 

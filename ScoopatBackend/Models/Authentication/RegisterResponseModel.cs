@@ -6,4 +6,5 @@ public class RegisterResponseModel
     public string id { get; set; }
     public string username { get; set; }
     public string role { get; set; }
+    public int employeeId { get; set; }
 }

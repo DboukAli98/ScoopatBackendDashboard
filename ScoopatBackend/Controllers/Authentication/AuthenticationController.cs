@@ -98,6 +98,7 @@ public class AuthenticationController : ControllerBase
                 {
                     Token = token,
                     id = userFromDb.Id,
+                    employeeId = employee.Id,
                     username = userFromDb.UserName,
                     role = userRoles.FirstOrDefault()!
 
@@ -212,6 +213,8 @@ public class AuthenticationController : ControllerBase
             var ctoken = new JwtSecurityTokenHandler().WriteToken(token);
 
             var role = userRoles.FirstOrDefault();
+            var employee = await _context.Employees.Where(e => e.User == user).FirstOrDefaultAsync();
+            var employeeId = employee?.Id;
 
 
             return Ok(new
@@ -221,6 +224,8 @@ public class AuthenticationController : ControllerBase
                 User = user.UserName,
                 role,
                 user.Id,
+                employeeId
+                
             });
 
         }

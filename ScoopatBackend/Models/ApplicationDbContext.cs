@@ -26,6 +26,8 @@ public class ApplicationDbContext:IdentityDbContext<ApplicationUser>
     public DbSet<Category> Categories { get; set; }
     public DbSet<Result> Results { get; set; }
     public DbSet<InspectionQuestionResult> InspectionQuestionsResults { get; set; }
+    public DbSet<Logs.Logs> Logs { get; set; }
+    public DbSet<Mapping> Mappings { get; set; }
 
 
 
